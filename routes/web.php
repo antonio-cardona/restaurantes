@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RestaurantesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function() {
-    return view('home');
+Route::get('/', function () {
+    return view('restaurantes.lista');
 })->name('home');
+
+Route::prefix('restaurantes')->group(function () {
+    Route::get('crear', [RestaurantesController::class, 'create']);
+    Route::post('store', [RestaurantesController::class, 'store']);
+    Route::get('eliminar', [RestaurantesController::class, 'destroy']);
+    Route::get('actualizar', [RestaurantesController::class, 'edit']);
+
+    Route::get('lista', [RestaurantesController::class, 'index']);
+});
+
+Route::get('reservas/lista', function () {
+    return view('reservas.lista');
+});

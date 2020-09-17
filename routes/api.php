@@ -17,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group([
+    'prefix' => 'restaurantes'
+], function (){
+    // Mapeamos "/api/restaurantes/lista" a la acción "lista" del controlador.
+    Route::post('lista', [RestaurantesController::class, 'lista']);
+
+    // Mapeamos "/api/restaurantes/reservar_mesa" a la acción "reservar_mesa" del controlador.
+    Route::post('reservar_mesa', [RestaurantesController::class, 'reservarMesa']);
+});
